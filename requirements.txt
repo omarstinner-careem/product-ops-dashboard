@@ -1,0 +1,6 @@
+numpy==1.24.3
+pandas==1.5.3
+plotly==5.9.0
+python_dateutil==2.8.2
+st_gsheets_connection==0.0.3
+streamlit==1.27.2
