@@ -189,7 +189,7 @@ default_city_index = city_options.index('Cairo') if 'Cairo' in city_options else
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    city_filter = st.selectbox('City', city_options, index=default_city_index)
+    city_filter = st.selectbox('City', city_options)
     metric_filter = st.selectbox('Metric', ['All'] + exp_view['PRIMARY METRIC'].unique().tolist())
 
 with col2:
