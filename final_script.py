@@ -684,7 +684,9 @@ weekly_data.dropna(axis=1, how='all', inplace=True)
 #Filling in all "INITIATIVE" column with each rows' respective Initiative
 # weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].fillna(method='ffill')
 # weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].astype(str).replace("nan", None).fillna(method='ffill')
+# weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].replace("", pd.NA).fillna(method='ffill')
 weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].replace("", pd.NA).fillna(method='ffill')
+
 
 
 
@@ -702,7 +704,7 @@ default_index = city_options.index('Dubai') if 'Dubai' in city_options else 0
 st.write("Columns in Weekly Data:", weekly_data.columns)
 
 
-st.write(weekly_data.tail(10))
+st.write(weekly_data.head(10))
 
 
 ########
