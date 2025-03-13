@@ -12,13 +12,48 @@ from plotly.graph_objs import Figure
 from dateutil.relativedelta import relativedelta
 from collections import OrderedDict
 from streamlit_gsheets import GSheetsConnection
+import gspread
+import json
+from google.oauth2.service_account import Credentials
+
 
 st.set_page_config(layout="wide")
 
-conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+# conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 
-data1 = conn.read(worksheet="Experiments")
-data2 = conn.read(worksheet="Weekly")
+# data1 = conn.read(worksheet="Experiments")
+# data2 = conn.read(worksheet="Weekly")
+
+# Function to fetch Google Sheets data dynamically
+@st.cache_data(ttl=60)
+def load_data(sheet_name):
+    # Load credentials from Streamlit secrets
+    service_account_info = st.secrets["connections.gsheets"]
+    creds = Credentials.from_service_account_info(
+        json.loads(json.dumps(service_account_info)),
+        scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    )
+
+    # Authenticate and open Google Sheets
+    client = gspread.authorize(creds)
+    sheet = client.open_by_url(service_account_info["spreadsheet"])
+    worksheet = sheet.worksheet(sheet_name)
+
+    # Get all records as a DataFrame
+    data = worksheet.get_all_records()
+    return pd.DataFrame(data)
+
+
+
+# Load and fetch data from Google Sheets
+data1 = load_data(sheet_name="Experiments")
+data2 = load_data(sheet_name="Weekly")
+
+
+# Refresh button
+if st.button("Refresh Data"):
+    st.cache_data.clear()
+    st.experimental_rerun()
 
 #just feed it in directly, no need for pd.read_csv()
 exp_view = data1
