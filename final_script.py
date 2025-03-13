@@ -16,6 +16,7 @@ import gspread
 import json
 from google.oauth2.service_account import Credentials
 
+st.write("Available secrets:", st.secrets)
 
 st.set_page_config(layout="wide")
 
