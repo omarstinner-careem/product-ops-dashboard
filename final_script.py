@@ -695,6 +695,9 @@ city_options = ['All'] + list(weekly_data['CITY'].unique())
 # Set the default index for 'Dubai'
 default_index = city_options.index('Dubai') if 'Dubai' in city_options else 0
 
+st.write("Columns in Weekly Data:", weekly_data.columns)
+
+
 st.write(weekly_data.tail(10))
 
 
