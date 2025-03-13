@@ -684,8 +684,6 @@ weekly_data.dropna(axis=1, how='all', inplace=True)
 #Filling in all "INITIATIVE" column with each rows' respective Initiative
 weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].fillna(method='ffill')
 
-st.write(weekly_data.tail(10))
-
 #Get rid of the 4th column because we don't need it
 weekly_data = weekly_data.drop(weekly_data.columns[3], axis=1)
 
@@ -697,6 +695,7 @@ city_options = ['All'] + list(weekly_data['CITY'].unique())
 # Set the default index for 'Dubai'
 default_index = city_options.index('Dubai') if 'Dubai' in city_options else 0
 
+st.write(weekly_data.tail(10))
 
 
 ########
