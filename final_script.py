@@ -27,19 +27,31 @@ st.set_page_config(layout="wide")
 # Function to fetch Google Sheets data dynamically
 @st.cache_data(ttl=60)
 def load_data(sheet_name):
-    # Load credentials from Streamlit secrets
-    service_account_info = st.secrets["connections.gsheets"]
-    creds = Credentials.from_service_account_info(
-        json.loads(json.dumps(service_account_info)),
-        scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    )
+    # Ensure we access `connections.gsheets` correctly
+    creds_dict = st.secrets["connections.gsheets"]
 
-    # Authenticate and open Google Sheets
+    creds_info = {
+        "type": creds_dict["type"],
+        "project_id": creds_dict["project_id"],
+        "private_key_id": creds_dict["private_key_id"],
+        "private_key": creds_dict["private_key"].replace('\\n', '\n'),
+        "client_email": creds_dict["client_email"],
+        "client_id": creds_dict["client_id"],
+        "auth_uri": creds_dict["auth_uri"],
+        "token_uri": creds_dict["token_uri"],
+        "auth_provider_x509_cert_url": creds_dict["auth_provider_x509_cert_url"],
+        "client_x509_cert_url": creds_dict["client_x509_cert_url"]
+    }
+
+    # Authenticate
+    creds = Credentials.from_service_account_info(creds_info, scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"])
     client = gspread.authorize(creds)
-    sheet = client.open_by_url(service_account_info["spreadsheet"])
-    worksheet = sheet.worksheet(sheet_name)
 
-    # Get all records as a DataFrame
+    # Open spreadsheet and worksheet
+    sheet = client.open_by_url(creds_dict["spreadsheet"])
+    worksheet = sheet.worksheet(sheet_name)  # Use sheet_name parameter dynamically
+
+    # Fetch data
     data = worksheet.get_all_records()
     return pd.DataFrame(data)
 
