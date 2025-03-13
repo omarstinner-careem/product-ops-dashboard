@@ -24,9 +24,10 @@ st.set_page_config(layout="wide")
 # data2 = conn.read(worksheet="Weekly")
 
 # Function to fetch Google Sheets data dynamically
-@st.cache_data(ttl=60)
+# @st.cache_data(ttl=60)  
+
 def load_data(sheet_name):
-    creds_dict = st.secrets["connections"]["gsheets"]
+    creds_dict = st.secrets["connections"]["gsheets"]  # ✅ Ensure correct access
 
     creds_info = {
         "type": creds_dict["type"],
@@ -41,18 +42,35 @@ def load_data(sheet_name):
         "client_x509_cert_url": creds_dict["client_x509_cert_url"]
     }
 
-    # Authenticate
+    # ✅ Authenticate
     creds = Credentials.from_service_account_info(creds_info, scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"])
     client = gspread.authorize(creds)
 
-    # Open spreadsheet and worksheet
+    # ✅ Open spreadsheet and worksheet
     sheet = client.open_by_url(creds_dict["spreadsheet"])
     worksheet = sheet.worksheet(sheet_name)
 
-    # Fetch data
-    data = worksheet.get_all_records()
-    return pd.DataFrame(data)
+    # ✅ Read raw data
+    raw_data = worksheet.get_all_values()
 
+    # ✅ Extract headers from the first row
+    headers = raw_data[0]  # First row is assumed to be headers
+
+    # ✅ Ensure headers are unique (append `_1, _2` to duplicates)
+    seen = {}
+    unique_headers = []
+    for col in headers:
+        if col in seen:
+            seen[col] += 1
+            unique_headers.append(f"{col}_{seen[col]}")
+        else:
+            seen[col] = 0
+            unique_headers.append(col)
+
+    # ✅ Convert the data into a DataFrame
+    df = pd.DataFrame(raw_data[1:], columns=unique_headers)  # Exclude first row (headers)
+
+    return df
 
 
 # Load and fetch data from Google Sheets
