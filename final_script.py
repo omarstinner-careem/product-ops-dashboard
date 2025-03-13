@@ -12,31 +12,6 @@ from plotly.graph_objs import Figure
 from dateutil.relativedelta import relativedelta
 from collections import OrderedDict
 from streamlit_gsheets import GSheetsConnection
-import gspread
-from google.oauth2.service_account import Credentials
-
-# Function to fetch Google Sheets data with caching
-@st.cache_data(ttl=60)  # Refreshes data every 60 seconds
-def load_data():
-    creds = Credentials.from_service_account_file("path_to_service_account.json", scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"])
-    client = gspread.authorize(creds)
-    sheet = client.open("Your Google Sheet Name").sheet1
-    data = sheet.get_all_records()
-    return pd.DataFrame(data)
-
-# Load data
-df = load_data()
-
-# Display the data on the Streamlit dashboard
-st.write(df)
-
-# Optional: Button to manually refresh data
-if st.button("Refresh Data"):
-    st.cache_data.clear()
-    st.experimental_rerun()  # Forces app to reload with fresh data
-
-
-
 
 st.set_page_config(layout="wide")
 
