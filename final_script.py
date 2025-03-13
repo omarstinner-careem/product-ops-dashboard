@@ -24,7 +24,7 @@ st.set_page_config(layout="wide")
 # data2 = conn.read(worksheet="Weekly")
 
 # Function to fetch Google Sheets data dynamically
-# @st.cache_data(ttl=60)  
+@st.cache_data(ttl=60)  
 
 def load_data(sheet_name):
     creds_dict = st.secrets["connections"]["gsheets"]  # ✅ Ensure correct access
