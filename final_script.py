@@ -207,8 +207,8 @@ concatenated_df = pd.concat([
 # Create a list of unique city options with 'All' at the beginning
 city_options = ['All'] + exp_view['CITY'].unique().tolist()
 
-# Find the index of 'Cairo' in the city options list
-default_city_index = city_options.index('Cairo') if 'Cairo' in city_options else 0
+# Find the index of 'Dubai' in the city options list
+default_city_index = city_options.index('Dubai') if 'Dubai' in city_options else 0
 
 
 col1, col2, col3, col4 = st.columns(4)
@@ -652,8 +652,8 @@ col5, col6, col7, col8 = st.columns(4)
 # Get all the unique cities
 city_options = ['All'] + list(weekly_data['CITY'].unique())
 
-# Set the default index for 'Cairo'
-default_index = city_options.index('Cairo') if 'Cairo' in city_options else 0
+# Set the default index for 'Dubai'
+default_index = city_options.index('Dubai') if 'Dubai' in city_options else 0
 
 
 
@@ -673,7 +673,7 @@ city_options = ['All'] + sorted(weekly_data['CITY'].unique().tolist())
 
 # Initialize the selectbox for cities
 with col5:
-    city_filter_2 = st.selectbox('City', city_options, index=city_options.index('Cairo') if 'Cairo' in city_options else 0)
+    city_filter_2 = st.selectbox('City', city_options, index=city_options.index('Dubai') if 'Dubai' in city_options else 0)
 
 # Initialize the selectbox for initiatives with filtered options based on the selected city
 with col6:
