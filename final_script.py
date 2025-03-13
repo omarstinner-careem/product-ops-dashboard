@@ -28,8 +28,7 @@ st.set_page_config(layout="wide")
 # Function to fetch Google Sheets data dynamically
 @st.cache_data(ttl=60)
 def load_data(sheet_name):
-    # Ensure we access `connections.gsheets` correctly
-    creds_dict = st.secrets["connections.gsheets"]
+    creds_dict = st.secrets["connections"]["gsheets"]
 
     creds_info = {
         "type": creds_dict["type"],
@@ -50,7 +49,7 @@ def load_data(sheet_name):
 
     # Open spreadsheet and worksheet
     sheet = client.open_by_url(creds_dict["spreadsheet"])
-    worksheet = sheet.worksheet(sheet_name)  # Use sheet_name parameter dynamically
+    worksheet = sheet.worksheet(sheet_name)
 
     # Fetch data
     data = worksheet.get_all_records()
