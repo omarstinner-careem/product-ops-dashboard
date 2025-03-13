@@ -684,7 +684,7 @@ weekly_data.dropna(axis=1, how='all', inplace=True)
 #Filling in all "INITIATIVE" column with each rows' respective Initiative
 # weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].fillna(method='ffill')
 weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].astype(str).replace("nan", None).fillna(method='ffill')
-weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].replace("", pd.NA).fillna(method='ffill')
+# weekly_data["INITIATIVE"] = weekly_data["INITIATIVE"].replace("", pd.NA).fillna(method='ffill')
 
 
 
