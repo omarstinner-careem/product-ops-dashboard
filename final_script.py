@@ -507,7 +507,7 @@ trace4=go.Sunburst(
     textinfo="label",  # Labels will be visible only on hover
     insidetextorientation='radial',  # Improves readability
     marker=dict(
-        line=dict(color='black', width=1)),
+        line=dict(color='black', width=1.5)),
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
 
