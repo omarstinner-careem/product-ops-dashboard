@@ -810,7 +810,7 @@ for row in data_as_list:
 #Putting the data in a dataframe
 transformed_df = pd.DataFrame(transformed_data)
 
-st.write(transformed_df["stage"])
+st.write(transformed_df["stage"][1])
 
 #Calculating the height of the graph
 height_number = max(len(transformed_df["Initiative-city-platform"].unique()), 1) * 30
