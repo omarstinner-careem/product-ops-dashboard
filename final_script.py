@@ -479,8 +479,8 @@ concatenated_df["Total"] = concatenated_df[["Mark", "Sam", "Russel", "Jake"]].su
 
 # Creating a single go.Bar() trace where the x-axis represents stacked total weights
 trace4 = go.Bar(
-    xaxis='x4',
-    yaxis='y4',
+    # xaxis='x4',
+    # yaxis='y4',
     x=concatenated_df[["Mark", "Sam", "Russel", "Jake"]].values.tolist(),  # Use actual weights
     y=concatenated_df["YearMonth"],
     orientation='h',
@@ -491,6 +491,7 @@ trace4 = go.Bar(
     ),
     hovertemplate="<b>Month: %{y}</b><br>Mark: %{x[0]:.1f} kg<br>Sam: %{x[1]:.1f} kg<br>"
                   "Russel: %{x[2]:.1f} kg<br>Jake: %{x[3]:.1f} kg<extra></extra>",
+    domain=dict(x=[0.53, 0.72], y=[0.075, 0.395])
 )
 
 
