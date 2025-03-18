@@ -810,7 +810,7 @@ for row in data_as_list:
 #Putting the data in a dataframe
 transformed_df = pd.DataFrame(transformed_data)
 
-st.write(transformed_df["stage"][0].dtype)
+# st.write(transformed_df["stage"][0].dtype)
 
 #Calculating the height of the graph
 height_number = max(len(transformed_df["Initiative-city-platform"].unique()), 1) * 30
@@ -837,7 +837,7 @@ color_map = {
     'Awaiting Results': 'rgba(87, 74, 217, 0.8)',
     'Rollout': 'rgba(0, 165, 44, 0.8)',
     'No Rollout': 'rgba(235,79,107,0.8)',
-    'Paused': 'rgba(122, 123, 127, 0.8)',
+    'Paused': 'rgba(122, 123, 127, 0.8)'
 }
 
 #sorting the dataframe, because this will affect the lower code snippet when I come to creating the y-tick labels
