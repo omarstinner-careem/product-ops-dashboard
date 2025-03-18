@@ -77,7 +77,7 @@ def load_data(sheet_name):
 data1 = load_data(sheet_name="Experiments")
 data2 = load_data(sheet_name="Weekly")
 
-st.write(data2.tail(10))
+st.write(data1.tail(10))
 
 
 # Refresh button
