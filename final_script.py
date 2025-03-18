@@ -488,10 +488,10 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 #     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 # )
 
-concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
+# concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 
 # Generate labels, parents, and values for the Sunburst chart
-labels = concatenated_df["MONTH NAME"].tolist() + concatenated_df["YEAR"].unique().tolist()  # Months (outer) + Years (inner)
+labels = concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].unique().tolist()  # Months (outer) + Years (inner)
 parents = concatenated_df["YEAR"].tolist() + ["" for _ in concatenated_df["YEAR"].unique()]  # Months linked to years, Years linked to root
 values = concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()]  # Experiment counts
 
