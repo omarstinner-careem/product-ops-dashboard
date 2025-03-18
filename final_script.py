@@ -238,10 +238,10 @@ grouped_df.sort_values('MONTH', inplace=True)
 # Prepare the data by concatenating 2022 and 2023 data with an additional categorical variable
 # that indicates the year and month for the y-axis labels.
 concatenated_df = pd.concat([
-    grouped_df[grouped_df["YEAR"].astype(str) == "2022"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3]),
-    grouped_df[grouped_df["YEAR"].astype(str) == "2023"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3])
-    # grouped_df[grouped_df["YEAR"].astype(str) == "2024"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3]),
-    # grouped_df[grouped_df["YEAR"].astype(str) == "2025"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3])
+    # grouped_df[grouped_df["YEAR"].astype(str) == "2022"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3]),
+    # grouped_df[grouped_df["YEAR"].astype(str) == "2023"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3])
+    grouped_df[grouped_df["YEAR"].astype(str) == "2024"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3]),
+    grouped_df[grouped_df["YEAR"].astype(str) == "2025"].assign(YearMonth=lambda x: x["YEAR"].astype(str) + ' - ' + x["MONTH NAME"].str[:3])
 ])
 
 
