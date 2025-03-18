@@ -505,9 +505,8 @@ trace4=go.Sunburst(
     branchvalues="total",  # Ensures correct hierarchy
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",  # Tooltip displays correct info
     textinfo="label",  # Labels will be visible only on hover
-    insidetextorientation='radial',  # Improves readability
-    # marker=dict(
-    #     line=dict(color='black', width=1.5)),
+    marker=dict(
+        line=dict(color='black', width=1.5)),
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
 
