@@ -523,12 +523,12 @@ layout1 = dict(
     xaxis1=dict(domain=[0.513, 0.743], showticklabels=False,  showgrid=False),
     xaxis2=dict(domain=[0.766, 1], showticklabels=False,  showgrid=False),
     xaxis3=dict(domain=[0.513, 0.743], showticklabels=False,  showgrid=False),
-    xaxis4=dict(domain=[0.55, 1], showticklabels=False, showgrid=False), #was 0.766
-    
+    xaxis4=dict(domain=[0.766, 1], showticklabels=False, showgrid=False), #was 0.766
+
     yaxis1=dict(domain=[0.55, 0.99], showticklabels=False,  showgrid=False),
     yaxis2=dict(domain=[0.55, 0.99], showticklabels=False,  showgrid=False),
     yaxis3=dict(domain=[0, 0.495], showticklabels=False, showgrid=False),
-    yaxis4=dict(domain=[0, 0.9], showticklabels=False, showgrid=False), #was 0.495
+    yaxis4=dict(domain=[0, 0.495], showticklabels=False, showgrid=False), #was 0.495
     plot_bgcolor='rgb(19,230,143)'
 
 )
