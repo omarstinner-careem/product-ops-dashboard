@@ -470,7 +470,7 @@ values = []    # Corresponding values
 for year in concatenated_df["YEAR"].unique():
     labels.append(str(year))   # Year as a node
     parents.append("")         # Root node
-    values.append(df[df["YEAR"] == year]["Counts"].sum())  # Sum of counts for the year
+    values.append(concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum())  # Sum of counts for the year
 
 # Step 2: Add Month Nodes (Outer Circle)
 for index, row in concatenated_df.iterrows():
