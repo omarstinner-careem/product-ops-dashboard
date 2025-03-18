@@ -755,13 +755,12 @@ def transform_data(headers, row_data):
     # Extract dates from the headers skipping the first three headers as they are not dates
     headers_dates = [parse_week_dates(h) for h in headers[3:] if 'WEEK' in h]
 
-    st.write(headers_dates)
     transformed_rows = []
     current_stage = None
     current_start_date = None
     
     # Loop through the row_data starting from the 4th element
-    for i, stage in enumerate(row_data[3:], start=3):  # Start from 3 to skip the first three columns
+    for i, stage in enumerate(row_data[3:], start=3):  # Start from 3 (index) to skip the first four columns
         if pd.isna(stage) and current_stage is not None:
             # Since we skip the first three elements, index should be i - 3
             transformed_rows.append({
@@ -810,6 +809,8 @@ for row in data_as_list:
 
 #Putting the data in a dataframe
 transformed_df = pd.DataFrame(transformed_data)
+
+st.write(transformed_df)
 
 #Calculating the height of the graph
 height_number = max(len(transformed_df["Initiative-city-platform"].unique()), 1) * 30
