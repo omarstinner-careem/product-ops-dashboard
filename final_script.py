@@ -426,7 +426,7 @@ trace3_2=go.Scatter(
     textposition="bottom center",
     hoverinfo='skip',
     textfont=dict(
-        size=100,
+        size=30,
         family="PT Sans Narrow",
         color='rgb(4,76,60)'
     )
@@ -456,7 +456,7 @@ trace4=go.Bar(
     hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
     marker=dict(
         color=bar_colors_main,  # This will set a single color for all bars
-        line=dict(color=bar_colors_line, width=3)
+        line=dict(color=bar_colors_line, width=20)
     )
 )
 
