@@ -27,7 +27,7 @@ st.set_page_config(layout="wide")
 @st.cache_data(ttl=1)  
 
 def load_data(sheet_name):
-    creds_dict = st.secrets["connections"]["gsheets"]  # ✅ Ensure correct access
+    creds_dict = st.secrets["connections"]["gsheets"]  #Ensure correct access
 
     creds_info = {
         "type": creds_dict["type"],
@@ -42,21 +42,21 @@ def load_data(sheet_name):
         "client_x509_cert_url": creds_dict["client_x509_cert_url"]
     }
 
-    # ✅ Authenticate
+    #Authenticate
     creds = Credentials.from_service_account_info(creds_info, scopes=["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"])
     client = gspread.authorize(creds)
 
-    # ✅ Open spreadsheet and worksheet
+    #Open spreadsheet and worksheet
     sheet = client.open_by_url(creds_dict["spreadsheet"])
     worksheet = sheet.worksheet(sheet_name)
 
-    # ✅ Read raw data
+    #Read raw data
     raw_data = worksheet.get_all_values()
 
-    # ✅ Extract headers from the first row
+    #Extract headers from the first row
     headers = raw_data[0]  # First row is assumed to be headers
 
-    # ✅ Ensure headers are unique (append `_1, _2` to duplicates)
+    #Ensure headers are unique (append `_1, _2` to duplicates)
     seen = {}
     unique_headers = []
     for col in headers:
@@ -67,7 +67,7 @@ def load_data(sheet_name):
             seen[col] = 0
             unique_headers.append(col)
 
-    # ✅ Convert the data into a DataFrame
+    #Convert the data into a DataFrame
     df = pd.DataFrame(raw_data[1:], columns=unique_headers)  # Exclude first row (headers)
 
     return df
@@ -487,7 +487,7 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 
 concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 
-# 🔥 Convert full month names to 3-letter abbreviations
+#Convert full month names to 3-letter abbreviations
 month_abbreviations = {
     "January": "Jan", "February": "Feb", "March": "Mar", "April": "Apr", "May": "May", "June": "Jun",
     "July": "Jul", "August": "Aug", "September": "Sep", "October": "Oct", "November": "Nov", "December": "Dec"
