@@ -77,8 +77,13 @@ def load_data(sheet_name):
 data1 = load_data(sheet_name="Experiments")
 data2 = load_data(sheet_name="Weekly")
 
-# st.write(data1.tail(10))
-
+st.markdown("""
+    <style>
+        .block-container {
+            padding-top: 40px !important;  /* Adjust as needed */
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Refresh button
 if st.button("Refresh Data"):
