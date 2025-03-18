@@ -479,7 +479,6 @@ for index, row in concatenated_df.iterrows():
     values.append(row["Counts"])             # Experiment count
 
 
-st.write(sunburst_transformed_df)
 
 
 trace4=go.Sunburst(
