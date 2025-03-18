@@ -754,7 +754,8 @@ def parse_week_dates(header_str):
 def transform_data(headers, row_data):
     # Extract dates from the headers skipping the first three headers as they are not dates
     headers_dates = [parse_week_dates(h) for h in headers[3:] if 'WEEK' in h]
-    
+
+    st.write(headers_dates)
     transformed_rows = []
     current_stage = None
     current_start_date = None
@@ -791,6 +792,8 @@ def transform_data(headers, row_data):
         })
     
     return transformed_rows
+
+
 
 # The rest of your code should remain the same.
 headers = list(filtered_weekly_view.columns)
