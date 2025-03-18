@@ -491,7 +491,10 @@ trace4 = go.Bar(
                   "Russel: %{x[2]:.1f} kg<br>Jake: %{x[3]:.1f} kg<extra></extra>",
 )
 
-st.plotly_chart(trace4)
+
+fignoo = go.Figure(data=[trace4])
+
+st.plotly_chart(fignoo)
 
 
 
