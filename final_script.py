@@ -484,7 +484,7 @@ trace4=go.Sunburst(
     values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
     branchvalues="total",  # Values define the total sum per branch
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
-    textinfo="label+percent parent",
+    textinfo="label",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
 
