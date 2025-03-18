@@ -447,18 +447,34 @@ bar_colors_line[0] = 'rgb(19,230,143)'  # Red with transparency for the last bar
 
 st.write(concatenated_df.head(10))
 
-trace4=go.Bar(
-    xaxis='x4',
-    yaxis='y4',
-    y=concatenated_df["YearMonth"],
-    x=concatenated_df["Counts"],
-    orientation='h',
-    hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
-    marker=dict(
-        color=bar_colors_main,  # This will set a single color for all bars
-        line=dict(color=bar_colors_line, width=3)
-    )
-)
+# trace4=go.Bar(
+#     xaxis='x4',
+#     yaxis='y4',
+#     y=concatenated_df["YearMonth"],
+#     x=concatenated_df["Counts"],
+#     orientation='h',
+#     hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
+#     marker=dict(
+#         color=bar_colors_main,  # This will set a single color for all bars
+#         line=dict(color=bar_colors_line, width=3)
+#     )
+# )
+
+# Data
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+mark =   [100, 105, 110, 108, 112, 115, 120, 125, 123, 119, 118, 122]
+sam =    [70,  72,  74,  76,  78,  80,  82,  85,  83,  81,  80,  79]
+russel = [120, 122, 125, 123, 128, 130, 135, 140, 138, 136, 134, 133]
+jake =   [62,  64,  66,  68,  70,  72,  74,  77,  75,  73,  72,  71]
+
+# Create traces for each person
+trace4 = go.Figure()
+
+trace4.add_trace(go.Bar(y=months, x=mark, name="Mark", orientation='h', marker=dict(color='blue')))
+trace4.add_trace(go.Bar(y=months, x=sam, name="Sam", orientation='h', marker=dict(color='red'), base=mark))
+trace4.add_trace(go.Bar(y=months, x=russel, name="Russel", orientation='h', marker=dict(color='green'), base=[m + s for m, s in zip(mark, sam)]))
+trace4.add_trace(go.Bar(y=months, x=jake, name="Jake", orientation='h', marker=dict(color='orange'), base=[m + s + r for m, s, r in zip(mark, sam, russel)]))
+
 
 trace4_2=go.Scatter(
     x=[1],
