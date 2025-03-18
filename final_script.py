@@ -490,8 +490,7 @@ trace4 = go.Bar(
         color=concatenated_df["Total"],  # Color intensity by total weight
     ),
     hovertemplate="<b>Month: %{y}</b><br>Mark: %{x[0]:.1f} kg<br>Sam: %{x[1]:.1f} kg<br>"
-                  "Russel: %{x[2]:.1f} kg<br>Jake: %{x[3]:.1f} kg<extra></extra>",
-    domain=dict(x=[0.53, 0.72], y=[0.075, 0.395])
+                  "Russel: %{x[2]:.1f} kg<br>Jake: %{x[3]:.1f} kg<extra></extra>"
 )
 
 
