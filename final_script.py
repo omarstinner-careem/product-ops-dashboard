@@ -445,7 +445,7 @@ bar_colors_line = ['rgba(87, 74, 216, 1.0)'] * len(concatenated_df["Counts"])
 bar_colors_line[0] = 'rgb(19,230,143)'  # Red with transparency for the last bar
 
 
-
+st.write(concatenated_df.head(10))
 
 trace4=go.Bar(
     xaxis='x4',
@@ -456,7 +456,7 @@ trace4=go.Bar(
     hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
     marker=dict(
         color=bar_colors_main,  # This will set a single color for all bars
-        line=dict(color=bar_colors_line, width=20)
+        line=dict(color=bar_colors_line, width=3)
     )
 )
 
