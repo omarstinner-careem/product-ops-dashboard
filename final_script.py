@@ -580,7 +580,7 @@ fig1.add_annotation(
 
 #Year Split Title
 fig1.add_annotation(
-    x=5,
+    x=10,
     y=15,
     text="<b>                        Yearly Experiment Split                        </b>",
     showarrow=False,
