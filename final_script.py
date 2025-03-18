@@ -512,7 +512,7 @@ trace4=go.Sunburst(
     values=values,
     branchvalues="total",
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
-    domain=dict(x=[0.76, 1], y=[0.075, 0.395]
+    domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
     
 
