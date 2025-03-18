@@ -468,7 +468,7 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 
 
 
-trace4=ggo.Sunburst(
+trace4=go.Sunburst(
     labels=concatenated_df["MONTH NAME"].tolist() + concatenated_df["YEAR"].unique().tolist(),  # Months as outer labels, Years as inner labels
     parents=concatenated_df["YEAR"].tolist() + ["" for _ in concatenated_df["YEAR"].unique()],  # Months mapped to their respective years
     values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
