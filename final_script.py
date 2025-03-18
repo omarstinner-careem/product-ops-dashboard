@@ -478,38 +478,15 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 # )
 
 
-# trace4=go.Sunburst(
-#     labels=concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
-#     parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
-#     values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
-#     branchvalues="total",  # Values define the total sum per branch
-#     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
-#     textinfo="label",
-#     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
-# )
-
-# concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
-
-# Generate labels, parents, and values for the Sunburst chart
-labels = concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].unique().tolist()  # Months (outer) + Years (inner)
-parents = concatenated_df["YEAR"].tolist() + ["" for _ in concatenated_df["YEAR"].unique()]  # Months linked to years, Years linked to root
-values = concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()]  # Experiment counts
-
-# 🔥 Hide text labels for outer circles by replacing month names with empty strings
-custom_labels = [" " for _ in concatenated_df["MONTH NAME"]] + concatenated_df["YEAR"].unique().tolist()  # Blank labels for outer ring
-
 trace4=go.Sunburst(
-    labels=labels,  # Full labels for hierarchy
-    parents=parents,  # Hierarchy mapping
-    values=values,  # Values for each node
-    branchvalues="total",  # Keeps hierarchy structure
-    textinfo="label",  # Displays only the inner circle
-    hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",  # Tooltip still works
-    insidetextorientation='radial',  # Makes inner circle labels readable
+    labels=concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
+    parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+    values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
+    branchvalues="total",  # Values define the total sum per branch
+    hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
+    textinfo="label",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
-
-
 
 
 
