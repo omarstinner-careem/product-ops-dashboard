@@ -447,53 +447,18 @@ bar_colors_line[0] = 'rgb(19,230,143)'  # Red with transparency for the last bar
 
 st.write(concatenated_df.head(10))
 
-# trace4=go.Bar(
-#     xaxis='x4',
-#     yaxis='y4',
-#     y=concatenated_df["YearMonth"],
-#     x=concatenated_df["Counts"],
-#     orientation='h',
-#     hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
-#     marker=dict(
-#         color=bar_colors_main,  # This will set a single color for all bars
-#         line=dict(color=bar_colors_line, width=3)
-#     )
-# )
-
-data_yo = {
-    "YearMonth": ["2024-01", "2024-02", "2024-03", "2024-04", "2024-05", "2024-06", 
-                  "2024-07", "2024-08", "2024-09", "2024-10", "2024-11", "2024-12"],
-    "Mark": [100, 105, 110, 108, 112, 115, 120, 125, 123, 119, 118, 122],
-    "Sam": [70, 72, 74, 76, 78, 80, 82, 85, 83, 81, 80, 79],
-    "Russel": [120, 122, 125, 123, 128, 130, 135, 140, 138, 136, 134, 133],
-    "Jake": [62, 64, 66, 68, 70, 72, 74, 77, 75, 73, 72, 71]
-}
-
-# Convert to DataFrame
-concatenated_df = pd.DataFrame(data_yo)
-
-st.write(concatenated_df)
-
-# Compute total weight per month
-concatenated_df["Total"] = concatenated_df[["Mark", "Sam", "Russel", "Jake"]].sum(axis=1)
-
-# Creating a single go.Bar() trace where the x-axis represents stacked total weights
-trace4 = go.Bar(
+trace4=go.Bar(
     xaxis='x4',
     yaxis='y4',
-    x=concatenated_df[["Mark", "Sam", "Russel", "Jake"]].values.tolist(),  # Use actual weights
     y=concatenated_df["YearMonth"],
+    x=concatenated_df["Counts"],
     orientation='h',
-    name="Weight Distribution",
+    hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
     marker=dict(
-        colorscale="Blues",  # Gradient color
-        color=concatenated_df["Total"],  # Color intensity by total weight
-        line=dict(width=3)
-    ),
-    hovertemplate="<b>Month: %{y}</b><br>Mark: %{x[0]:.1f} kg<br>Sam: %{x[1]:.1f} kg<br>"
-                  "Russel: %{x[2]:.1f} kg<br>Jake: %{x[3]:.1f} kg<extra></extra>"
+        color=bar_colors_main,  # This will set a single color for all bars
+        line=dict(color=bar_colors_line, width=3)
+    )
 )
-
 
 
 trace4_2=go.Scatter(
