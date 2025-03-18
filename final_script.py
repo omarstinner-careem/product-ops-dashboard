@@ -490,6 +490,13 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 
 concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 
+# 🔥 Convert full month names to 3-letter abbreviations
+month_abbreviations = {
+    "January": "Jan", "February": "Feb", "March": "Mar", "April": "Apr", "May": "May", "June": "Jun",
+    "July": "Jul", "August": "Aug", "September": "Sep", "October": "Oct", "November": "Nov", "December": "Dec"
+}
+concatenated_df["MONTH NAME"] = concatenated_df["MONTH NAME"].map(month_abbreviations)
+
 #Add a unique prefix to each month based on its year
 prefix_map = {"2022": "~", "2023": "+", "2024": "*"}
 concatenated_df["Unique Month"] = concatenated_df["YEAR"].map(prefix_map) + concatenated_df["MONTH NAME"]  # Add prefix
