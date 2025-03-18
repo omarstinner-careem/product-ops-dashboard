@@ -483,7 +483,6 @@ st.write(sunburst_transformed_df)
 
 
 trace4=go.Sunburst(
-    go.Sunburst(
     labels=labels,
     parents=parents,
     values=values,
