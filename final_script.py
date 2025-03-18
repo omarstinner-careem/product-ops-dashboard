@@ -479,8 +479,8 @@ concatenated_df["Total"] = concatenated_df[["Mark", "Sam", "Russel", "Jake"]].su
 
 # Creating a single go.Bar() trace where the x-axis represents stacked total weights
 trace4 = go.Bar(
-    # xaxis='x4',
-    # yaxis='y4',
+    xaxis='x4',
+    yaxis='y4',
     x=concatenated_df[["Mark", "Sam", "Russel", "Jake"]].values.tolist(),  # Use actual weights
     y=concatenated_df["YearMonth"],
     orientation='h',
