@@ -461,34 +461,33 @@ st.write(concatenated_df)
 # )
 
 
-# Creating a new DataFrame for the Sunburst chart structure
-sunburst_df = pd.DataFrame(columns=["labels", "parents", "values"])
+# 🔹 Transform data for the Sunburst chart
+labels = []    # Names of nodes
+parents = []   # Parent nodes
+values = []    # Corresponding values
 
-# 🔹 Adding Year as root nodes (inner circle)
-years = concatenated_df["YEAR"].astype(str).unique()
-year_values = [concatenated_df[concatenated_df["YEAR"] == int(year)]["Counts"].sum() for year in years]
+# Step 1: Add Year Nodes (Inner Circle)
+for year in concatenated_df["YEAR"].unique():
+    labels.append(str(year))   # Year as a node
+    parents.append("")         # Root node
+    values.append(df[df["YEAR"] == year]["Counts"].sum())  # Sum of counts for the year
 
-year_nodes = pd.DataFrame({"labels": years, "parents": ["" for _ in years], "values": year_values})
-
-# 🔹 Adding Months as children of respective years (outer circle)
-month_nodes = pd.DataFrame({
-    "labels": concatenated_df["MONTH NAME"],
-    "parents": concatenated_df["YEAR"].astype(str),
-    "values": concatenated_df["Counts"]
-})
-
-# 🔥 Combining both Year and Month nodes
-sunburst_transformed_df = pd.concat([year_nodes, month_nodes], ignore_index=True)
+# Step 2: Add Month Nodes (Outer Circle)
+for index, row in concatenated_df.iterrows():
+    labels.append(row["MONTH NAME"])         # Month name
+    parents.append(str(row["YEAR"]))         # Linked to respective year
+    values.append(row["Counts"])             # Experiment count
 
 
 st.write(sunburst_transformed_df)
 
 
 trace4=go.Sunburst(
-    labels=sunburst_transformed_df["labels"],  # Labels for each node (years & months)
-    parents=sunburst_transformed_df["parents"],  # Parent relationships (months -> years)
-    values=sunburst_transformed_df["values"],  # Experiment counts
-    branchvalues="total",  # Ensure correct hierarchical distribution
+    go.Sunburst(
+    labels=labels,
+    parents=parents,
+    values=values,
+    branchvalues="total",
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
