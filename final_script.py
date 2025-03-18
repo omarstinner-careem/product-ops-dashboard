@@ -479,9 +479,9 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 
 
 trace4=go.Sunburst(
-    labels=df["YearMonth"].tolist() + df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
-    parents=df["YEAR"].astype(str).tolist() + ["" for _ in df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
-    values=df["Counts"].tolist() + [df[df["YEAR"] == year]["Counts"].sum() for year in df["YEAR"].unique()],  # Experiment counts
+    labels=concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
+    parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+    values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
     branchvalues="total",  # Values define the total sum per branch
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
