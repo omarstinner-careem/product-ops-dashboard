@@ -494,7 +494,7 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 prefix_map = {"2022": "~", "2023": "+", "2024": "*"}
 concatenated_df["Unique Month"] = concatenated_df["YEAR"].map(prefix_map) + concatenated_df["MONTH NAME"]  # Add prefix
 
-go.Sunburst(
+trace4=go.Sunburst(
     labels=concatenated_df["Unique Month"].tolist() + concatenated_df["YEAR"].unique().tolist(),  # Unique Months (outer) + Years (inner)
     parents=concatenated_df["YEAR"].tolist() + ["" for _ in concatenated_df["YEAR"].unique()],  # Mapping: Months → Years, Years → Root
     values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
