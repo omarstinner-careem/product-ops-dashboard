@@ -485,10 +485,10 @@ st.write(sunburst_transformed_df)
 
 
 trace4=go.Sunburst(
-    labels=sunburst_transformed_df["MONTH NAME"].tolist() + sunburst_transformed_df["YEAR"].astype(str).unique().tolist(),  # Labels: months & years
-    parents=sunburst_transformed_df["YEAR"].astype(str).tolist() + ["" for _ in sunburst_transformed_df["YEAR"].astype(str).unique()],  # Year as parent
-    values=sunburst_transformed_df["Counts"].tolist() + [sunburst_transformed_df[sunburst_transformed_df["YEAR"] == year]["Counts"].sum() for year in sunburst_transformed_df["YEAR"].unique()],  # Experiment counts
-    branchvalues="total",  # Ensures values distribute properly
+    labels=sunburst_transformed_df["labels"],  # Labels for each node (years & months)
+    parents=sunburst_transformed_df["parents"],  # Parent relationships (months -> years)
+    values=sunburst_transformed_df["values"],  # Experiment counts
+    branchvalues="total",  # Ensure correct hierarchical distribution
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
