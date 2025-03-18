@@ -404,7 +404,7 @@ trace2_2=go.Scatter(
     textfont=dict(
         size=30,
         family="PT Sans Narrow",
-        color='rgb(2,76,60)'
+        color='rgb(4,76,60)'
     )
 )
 
@@ -426,7 +426,7 @@ trace3_2=go.Scatter(
     textposition="bottom center",
     hoverinfo='skip',
     textfont=dict(
-        size=30,
+        size=100,
         family="PT Sans Narrow",
         color='rgb(4,76,60)'
     )
