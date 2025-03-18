@@ -460,10 +460,34 @@ st.write(concatenated_df)
 #     )
 # )
 
+
+# Creating a new DataFrame for the Sunburst chart structure
+sunburst_df = pd.DataFrame(columns=["labels", "parents", "values"])
+
+# 🔹 Adding Year as root nodes (inner circle)
+years = concatenated_df["YEAR"].astype(str).unique()
+year_values = [concatenated_df[concatenated_df["YEAR"] == int(year)]["Counts"].sum() for year in years]
+
+year_nodes = pd.DataFrame({"labels": years, "parents": ["" for _ in years], "values": year_values})
+
+# 🔹 Adding Months as children of respective years (outer circle)
+month_nodes = pd.DataFrame({
+    "labels": concatenated_df["MONTH NAME"],
+    "parents": concatenated_df["YEAR"].astype(str),
+    "values": concatenated_df["Counts"]
+})
+
+# 🔥 Combining both Year and Month nodes
+sunburst_transformed_df = pd.concat([year_nodes, month_nodes], ignore_index=True)
+
+
+
+
+
 trace4=go.Sunburst(
-    labels=concatenated_df["MONTH NAME"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels: months & years
-    parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent
-    values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
+    labels=sunburst_transformed_df["MONTH NAME"].tolist() + sunburst_transformed_df["YEAR"].astype(str).unique().tolist(),  # Labels: months & years
+    parents=sunburst_transformed_df["YEAR"].astype(str).tolist() + ["" for _ in sunburst_transformed_df["YEAR"].astype(str).unique()],  # Year as parent
+    values=sunburst_transformed_df["Counts"].tolist() + [sunburst_transformed_df[sunburst_transformed_df["YEAR"] == year]["Counts"].sum() for year in sunburst_transformed_df["YEAR"].unique()],  # Experiment counts
     branchvalues="total",  # Ensures values distribute properly
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
