@@ -461,33 +461,15 @@ st.write(concatenated_df)
 # )
 
 
-# 🔹 Transform data for the Sunburst chart
-labels = []    # Labels for each node
-parents = []   # Parent relationships
-values = []    # Corresponding values
-
-# Step 1: Add Year Nodes (Inner Circle)
-year_totals = concatenated_df.groupby("YEAR")["Counts"].sum().reset_index()
-
-for _, row in year_totals.iterrows():
-    labels.append(str(row["YEAR"]))  # Year as a node
-    parents.append("")  # Root node (no parent)
-    values.append(row["Counts"])  # Total counts per year
-
-# Step 2: Add Month Nodes (Outer Circle) Linked to Correct Years
-for _, row in concatenated_df.iterrows():
-    labels.append(row["MONTH NAME"])  # Month name
-    parents.append(str(row["YEAR"]))  # Linked to respective year
-    values.append(row["Counts"])  # Experiment count
 
 
 
 
 trace4=go.Sunburst(
-    labels=labels,
-    parents=parents,
-    values=values,
-    branchvalues="total",
+    labels=concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
+    parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+    values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
+    branchvalues="total",  # Values define the total sum per branch
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
