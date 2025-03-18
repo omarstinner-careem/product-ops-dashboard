@@ -444,9 +444,6 @@ bar_colors_line = ['rgba(87, 74, 216, 1.0)'] * len(concatenated_df["Counts"])
 # Change the color of the last bar to a different color, e.g., red
 bar_colors_line[0] = 'rgb(19,230,143)'  # Red with transparency for the last bar
 
-
-st.write(concatenated_df)
-
 # trace4=go.Bar(
 #     xaxis='x4',
 #     yaxis='y4',
