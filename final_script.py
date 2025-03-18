@@ -491,7 +491,9 @@ trace4 = go.Bar(
                   "Russel: %{x[2]:.1f} kg<br>Jake: %{x[3]:.1f} kg<extra></extra>",
 )
 
-st.write(trace4)
+st.plotly_chart(trace4)
+
+
 
 trace4_2=go.Scatter(
     x=[1],
