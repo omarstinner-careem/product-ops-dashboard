@@ -447,18 +447,26 @@ bar_colors_line[0] = 'rgb(19,230,143)'  # Red with transparency for the last bar
 
 st.write(concatenated_df)
 
-trace4=go.Bar(
-    xaxis='x4',
-    yaxis='y4',
-    y=concatenated_df["YearMonth"],
-    x=concatenated_df["Counts"],
-    orientation='h',
-    hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
-    marker=dict(
-        color=bar_colors_main,  # This will set a single color for all bars
-        line=dict(color=bar_colors_line, width=3)
-    )
-)
+# trace4=go.Bar(
+#     xaxis='x4',
+#     yaxis='y4',
+#     y=concatenated_df["YearMonth"],
+#     x=concatenated_df["Counts"],
+#     orientation='h',
+#     hovertemplate='<b>%{label}</b><br>Count: %{value}<extra></extra>',
+#     marker=dict(
+#         color=bar_colors_main,  # This will set a single color for all bars
+#         line=dict(color=bar_colors_line, width=3)
+#     )
+# )
+
+trace4=go.Figure(go.Sunburst(
+    labels=df["YearMonth"].tolist() + df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
+    parents=df["YEAR"].astype(str).tolist() + ["" for _ in df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+    values=df["Counts"].tolist() + [df[df["YEAR"] == year]["Counts"].sum() for year in df["YEAR"].unique()],  # Experiment counts
+    branchvalues="total",  # Values define the total sum per branch
+    hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>"
+))
 
 
 trace4_2=go.Scatter(
