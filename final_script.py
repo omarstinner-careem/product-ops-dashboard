@@ -462,21 +462,23 @@ st.write(concatenated_df)
 
 
 # 🔹 Transform data for the Sunburst chart
-labels = []    # Names of nodes
-parents = []   # Parent nodes
+labels = []    # Labels for each node
+parents = []   # Parent relationships
 values = []    # Corresponding values
 
 # Step 1: Add Year Nodes (Inner Circle)
-for year in concatenated_df["YEAR"].unique():
-    labels.append(str(year))   # Year as a node
-    parents.append("")         # Root node
-    values.append(concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum())  # Sum of counts for the year
+year_totals = concatenated_df.groupby("YEAR")["Counts"].sum().reset_index()
 
-# Step 2: Add Month Nodes (Outer Circle)
-for index, row in concatenated_df.iterrows():
-    labels.append(row["MONTH NAME"])         # Month name
-    parents.append(str(row["YEAR"]))         # Linked to respective year
-    values.append(row["Counts"])             # Experiment count
+for _, row in year_totals.iterrows():
+    labels.append(str(row["YEAR"]))  # Year as a node
+    parents.append("")  # Root node (no parent)
+    values.append(row["Counts"])  # Total counts per year
+
+# Step 2: Add Month Nodes (Outer Circle) Linked to Correct Years
+for _, row in concatenated_df.iterrows():
+    labels.append(row["MONTH NAME"])  # Month name
+    parents.append(str(row["YEAR"]))  # Linked to respective year
+    values.append(row["Counts"])  # Experiment count
 
 
 
