@@ -810,6 +810,7 @@ for row in data_as_list:
 #Putting the data in a dataframe
 transformed_df = pd.DataFrame(transformed_data)
 
+#Converring the empty strongs with nan values so empty timeslines dont appear on the Gannt Chart
 transformed_df.replace("", np.nan, inplace=True)
 
 #Calculating the height of the graph
@@ -837,8 +838,7 @@ color_map = {
     'Awaiting Results': 'rgba(87, 74, 217, 0.8)',
     'Rollout': 'rgba(0, 165, 44, 0.8)',
     'No Rollout': 'rgba(235,79,107,0.8)',
-    'Paused': 'rgba(122, 123, 127, 0.8)',
-    '': 'rgba(255, 255, 0, 0.8)'
+    'Paused': 'rgba(122, 123, 127, 0.8)'
 }
 
 #sorting the dataframe, because this will affect the lower code snippet when I come to creating the y-tick labels
