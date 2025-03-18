@@ -478,42 +478,14 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 # )
 
 
-# go.Sunburst(
-#     labels=df["YearMonth"].tolist() + df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
-#     parents=df["YEAR"].astype(str).tolist() + ["" for _ in df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
-#     values=df["Counts"].tolist() + [df[df["YEAR"] == year]["Counts"].sum() for year in df["YEAR"].unique()],  # Experiment counts
-#     branchvalues="total",  # Values define the total sum per branch
-#     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>"
-
-
-
-# Original Data
-data = {
-    "YEAR": [2022, 2022, 2022, 2023, 2023, 2023, 2023, 2023, 2023, 2023, 2023, 2023, 2023, 2023, 2023, 2024, 2024, 2024, 2024, 2024],
-    "MONTH": [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 4, 5, 6, 7, 8],
-    "Counts": [9, 39, 38, 19, 14, 23, 3, 29, 20, 4, 6, 8, 14, 16, 3, 2, 5, 12, 1, 1],
-    "MONTH NAME": ["October", "November", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September",
-                   "October", "November", "December", "April", "May", "June", "July", "August"]
-}
-
-df = pd.DataFrame(data)
-
-# Convert YEAR to string for proper mapping
-df["YEAR"] = df["YEAR"].astype(str)
-
-# Prepare the Sunburst chart data
-labels = df["MONTH NAME"].tolist() + df["YEAR"].unique().tolist()  # Month names for outer circle, Years for inner circle
-parents = df["YEAR"].tolist() + ["" for _ in df["YEAR"].unique()]  # Assign months to years, and years to root
-values = df["Counts"].tolist() + [df[df["YEAR"] == year]["Counts"].sum() for year in df["YEAR"].unique()]  # Experiment counts
-
 trace4=go.Sunburst(
-    labels=labels,
-    parents=parents,
-    values=values,
-    branchvalues="total",
+    labels=df["YearMonth"].tolist() + df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
+    parents=df["YEAR"].astype(str).tolist() + ["" for _ in df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+    values=df["Counts"].tolist() + [df[df["YEAR"] == year]["Counts"].sum() for year in df["YEAR"].unique()],  # Experiment counts
+    branchvalues="total",  # Values define the total sum per branch
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
-)
+
     
 
 
