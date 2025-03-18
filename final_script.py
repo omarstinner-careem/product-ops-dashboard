@@ -77,7 +77,7 @@ def load_data(sheet_name):
 data1 = load_data(sheet_name="Experiments")
 data2 = load_data(sheet_name="Weekly")
 
-st.write(data1.tail(10))
+# st.write(data1.tail(10))
 
 
 # Refresh button
@@ -701,10 +701,10 @@ city_options = ['All'] + list(weekly_data['CITY'].unique())
 # Set the default index for 'Dubai'
 default_index = city_options.index('Dubai') if 'Dubai' in city_options else 0
 
-st.write("Columns in Weekly Data:", weekly_data.columns)
+# st.write("Columns in Weekly Data:", weekly_data.columns)
 
 
-st.write(weekly_data.head(10))
+# st.write(weekly_data.head(10))
 
 
 ########
