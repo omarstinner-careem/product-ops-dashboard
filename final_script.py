@@ -461,10 +461,10 @@ st.write(concatenated_df)
 # )
 
 trace4=go.Sunburst(
-    labels=concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
-    parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+    labels=concatenated_df["MONTH NAME"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels: months & years
+    parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent
     values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
-    branchvalues="total",  # Values define the total sum per branch
+    branchvalues="total",  # Ensures values distribute properly
     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
 )
