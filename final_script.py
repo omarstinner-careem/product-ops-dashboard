@@ -478,15 +478,34 @@ concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
 # )
 
 
-trace4=go.Sunburst(
-    labels=concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
-    parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+# trace4=go.Sunburst(
+#     labels=concatenated_df["YearMonth"].tolist() + concatenated_df["YEAR"].astype(str).unique().tolist(),  # Labels for sunburst
+#     parents=concatenated_df["YEAR"].astype(str).tolist() + ["" for _ in concatenated_df["YEAR"].astype(str).unique()],  # Year as parent, top-level root node
+#     values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
+#     branchvalues="total",  # Values define the total sum per branch
+#     hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
+#     textinfo="label",
+#     domain=dict(x=[0.76, 1], y=[0.075, 0.395])
+# )
+
+concatenated_df["YEAR"] = concatenated_df["YEAR"].astype(str)
+
+#Add a unique prefix to each month based on its year
+prefix_map = {"2022": "~", "2023": "+", "2024": "*"}
+concatenated_df["Unique Month"] = concatenated_df["YEAR"].map(prefix_map) + concatenated_df["MONTH NAME"]  # Add prefix
+
+go.Sunburst(
+    labels=concatenated_df["Unique Month"].tolist() + concatenated_df["YEAR"].unique().tolist(),  # Unique Months (outer) + Years (inner)
+    parents=concatenated_df["YEAR"].tolist() + ["" for _ in concatenated_df["YEAR"].unique()],  # Mapping: Months → Years, Years → Root
     values=concatenated_df["Counts"].tolist() + [concatenated_df[concatenated_df["YEAR"] == year]["Counts"].sum() for year in concatenated_df["YEAR"].unique()],  # Experiment counts
-    branchvalues="total",  # Values define the total sum per branch
-    hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",
-    textinfo="label",
-    domain=dict(x=[0.76, 1], y=[0.075, 0.395])
+    branchvalues="total",  # Ensures correct hierarchy
+    hovertemplate="<b>%{label}</b><br>Experiments: %{value}<extra></extra>",  # Tooltip displays correct info
+    textinfo="label",  # Labels will be visible only on hover
+    insidetextorientation='radial',  # Improves readability
+    domain=dict(x=[0.76, 1], y=[0.075, 0.395]
 )
+
+
 
 
 
