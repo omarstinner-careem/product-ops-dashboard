@@ -472,6 +472,8 @@ data_yo = {
 # Convert to DataFrame
 concatenated_df = pd.DataFrame(data_yo)
 
+st.write(concatenated_df)
+
 # Compute total weight per month
 concatenated_df["Total"] = concatenated_df[["Mark", "Sam", "Russel", "Jake"]].sum(axis=1)
 
