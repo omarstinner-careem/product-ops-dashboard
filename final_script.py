@@ -481,7 +481,7 @@ month_nodes = pd.DataFrame({
 sunburst_transformed_df = pd.concat([year_nodes, month_nodes], ignore_index=True)
 
 
-
+st.write(sunburst_transformed_df)
 
 
 trace4=go.Sunburst(
